@@ -1,3 +1,5 @@
+" BASIC ------------------------------------------------ {{{
+
 " Set colorscheme
 colorscheme jellybeans
 
@@ -107,6 +109,12 @@ set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 " Disable Copilot by default
 let g:copilot_enabled = v:false
 
+" Force .asm files to be treated as NASM
+au BufRead,BufNewFile *.asm set filetype=nasm
+
+" }}} 
+
+
 " PLUGINS ---------------------------------------------------------------- {{{
 
 call plug#begin('~/.vim/plugged')
@@ -125,10 +133,24 @@ call plug#begin('~/.vim/plugged')
 
 call plug#end()
 
+let g:ale_linters = {
+\   'nasm': ['nasm'],
+\}
+
+
 " }}}
 
 
 " MAPPINGS --------------------------------------------------------------- {{{
+
+" NERDTree
+nmap <C-f> :NERDTreeToggle<CR>
+
+" Window Navigation
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
 
 " Show function signature help
 autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -145,7 +167,6 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Confirm the completion and move cursor to the end of the completed word
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
-
 
 " }}}
 
